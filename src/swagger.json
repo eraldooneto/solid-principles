@@ -1,0 +1,156 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Atlas API",
+        "description": "This is a documentation for Atlas API",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Eraldo Neto",
+            "email": "eraldo@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create an user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": { 
+                                        "type":"string" 
+                                    }, 
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "User's name",
+                                    "email": "User's email"
+                                }
+                            }
+                        }
+                    }
+                }, 
+                "responses": {
+                    "201": {
+                        "description": "User created successfully!"
+                    },
+                    "400": {
+                        "description": "Email already exists!"
+                    }
+                }
+            }, 
+            "get": {
+                "tags": ["User"],
+                "summary": "List users",
+                "description": "List all users",
+                "parameters": [
+                  {
+                    "name": "X-user_id",
+                    "in": "header",
+                    "description": "User ID",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Success",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "400": {
+                    "description": "User not found!"
+                  }
+                }
+            }, 
+            "patch": {
+                "tags": ["User"],
+                "summary": "Change user's access permission",
+                "description": "Turn an user Admin", 
+                "parameters":[ 
+                {
+                    "name": "user_id",
+                    "in": "query",
+                    "description": "User ID",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+                ],
+
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                },
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "format": "date"
+                                      },
+                                      "updated_at": {
+                                        "type": "string",
+                                        "format": "date"
+                                      }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found!"
+                    }
+                }
+            }
+        } 
+    }
+}
+    
+        
